@@ -1,11 +1,3 @@
-/*Лабораторная работа по алгосам срок 2 недели, на сед неделе можно либо сдать, либо прийти задать вопросы. Программа для
-двоичной арифметики, сложение вычитание и умножение двоичных целых чисел. Создать класс двоичное число, в котором у нас
-в виде массива хранится двоичное число, битность должна задаваться параметром, числа знаковые. На ввод дается число в
-десятичном виде, вводится операция с консоли, читается ввод, десятичное число преобразуется в двоичное, все операции
-производятся столбиком с двоичным представлением числа, на выход - число в двоичном виде и в десятичном. Разрядность как
-параметр. ВАЖНО! Работа принимается 1 раз через 2 недели. То есть лучше сделать за неделю и пойти подойти к нему, чтоб
-он сказал верно/неверно.*/
-
 #include <iostream>
 #include <bitset>
 #include <vector>
@@ -14,9 +6,22 @@
 
 
 int main() {
-    BinaryNumber test1{-11, 8};
-    BinaryNumber test2{-3, 8};
-    (test1 + test2).print_decimal();
+//    std::cout << "Enter two numbers separated by space: " << std::endl;
+//    int a, b;
+//    std::cin >> a >> b;
+//    std::cout << "Enter their sizes in bits respectively: " << std::endl;
+//    int bitness1, bitness2;
+//    std::cin >> bitness1 >> bitness2;
+
+    BinaryNumber num1{10, 8};
+    BinaryNumber num2{-5, 16};
+
+    BinaryNumber sum = num1 + num2;
+    BinaryNumber sub = num1 - num2;
+    BinaryNumber mult = num1 * num2;
+    std::cout << "Sum bin: " << sum << ", dec: " << sum.to_decimal() << std::endl;
+    std::cout << "Sub bin: " << sub << ", dec: " << sub.to_decimal() << std::endl;
+    std::cout << "Mult bin: " << mult << ", dec: " << mult.to_decimal() << std::endl;
 
     return 0;
 }
