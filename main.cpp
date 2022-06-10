@@ -3,25 +3,46 @@
 #include <vector>
 
 #include "binary_number.h"
+#include "correct_input.h"
 
+const int bitness = 8;
 
 int main() {
-//    std::cout << "Enter two numbers separated by space: " << std::endl;
-//    int a, b;
-//    std::cin >> a >> b;
-//    std::cout << "Enter their sizes in bits respectively: " << std::endl;
-//    int bitness1, bitness2;
-//    std::cin >> bitness1 >> bitness2;
+    std::cout << "Enter two numbers: " << std::endl;
+    int a = correct_input();
+    int b = correct_input();
+    std::cout << "Enter operator: " << std::endl;
+    char oper = correct_oper();
 
-    BinaryNumber num1{10, 8};
-    BinaryNumber num2{-5, 16};
+    BinaryNumber num1{a, bitness};
+    BinaryNumber num2{b, bitness};
+
 
     BinaryNumber sum = num1 + num2;
     BinaryNumber sub = num1 - num2;
     BinaryNumber mult = num1 * num2;
-    std::cout << "Sum bin: " << sum << ", dec: " << sum.to_decimal() << std::endl;
-    std::cout << "Sub bin: " << sub << ", dec: " << sub.to_decimal() << std::endl;
-    std::cout << "Mult bin: " << mult << ", dec: " << mult.to_decimal() << std::endl;
+
+    std::cout << num1 << ' ' << oper << ' ' << num2 << std::endl;
+
+    switch (oper) {
+        case '+':
+        {
+            std::cout << "Sum bin: " << sum << ", dec: " << sum.to_decimal() << std::endl;
+            break;
+        }
+        case '-':
+        {
+            std::cout << "Sub bin: " << sub << ", dec: " << sub.to_decimal() << std::endl;
+            break;
+        }
+        case '*':
+        {
+            std::cout << "Mult bin: " << mult << ", dec: " << mult.to_decimal() << std::endl;
+            break;
+        }
+        default:
+            std::cerr << "Invalid operator" << std::endl;
+    }
 
     return 0;
 }
