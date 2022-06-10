@@ -3,7 +3,7 @@
 #include <vector>
 
 
-int pow(int a, int b) {
+int pow(int a, int b) { // power - возведение в степено
     int result = 1;
     for (int i = 0; i < b; ++i) {
         result *= a;
@@ -15,20 +15,15 @@ void right_shift(std::vector<int> &number, int shift) {
     for (int j = 0; j < shift; ++j) {
         for (int i = 0; i < number.size() - 1; ++i)
             number[i] = number[i + 1];
-
-        if (number.back() == 1)
-            *(number.end()) = 1;
-        else
-            *(number.end()) = 0;
     }
 }
 
 void BinaryNumber::setDump(int number) {
     if (number < 0) {
-        m_negative_flag = true;
+        m_negative_flag = false;
         number = -number - 1;
         for (int i = 0; i < m_bitness; ++i) {
-            if (number % 2) {
+            if (number % 2 == 1) {
                 m_bin_dump[i] = 0;
             } else {
                 m_bin_dump[i] = 1;
@@ -36,7 +31,7 @@ void BinaryNumber::setDump(int number) {
             number /= 2;
         }
     } else {
-        m_negative_flag = false;
+        m_negative_flag = true;
         for (int i = 0; i < m_bitness; ++i) {
             m_bin_dump[i] = number % 2;
             number /= 2;
@@ -56,7 +51,7 @@ void BinaryNumber::setDump(std::vector<int> dump) {
 
 int BinaryNumber::getBite(int number) const {
     if (number > m_bitness) {
-        if (m_negative_flag)
+        if (!m_negative_flag)
             return 1;
         else
             return 0;
@@ -93,9 +88,10 @@ int BinaryNumber::to_decimal() const {
     }
 
 
-    for (int i = 0; i < this->getBitness(); ++i) {
+    for (int i = 0; i < m_bitness; ++i) {
         result += tmp_number1.getBite(i) * pow(2, i);
     }
+
     return result;
 }
 
@@ -108,7 +104,7 @@ std::ostream &operator<<(std::ostream &out, BinaryNumber &bin_number) {
 }
 
 BinaryNumber operator+(const BinaryNumber &n1, const BinaryNumber &n2) {
-    int new_bitness = (n1.m_bitness > n2.m_bitness ? n1.m_bitness : n2.m_bitness);
+    int new_bitness = (n1.m_bitness > n2.m_bitness ? n1.m_bitness : n2.m_bitness); // тернарный оператор если то иначе
     std::vector<int> number1{n1.m_bin_dump};
     std::vector<int> number2{n2.m_bin_dump};
 
@@ -211,7 +207,7 @@ std::vector<int> sum(const BinaryNumber &n1, const BinaryNumber &n2, bool ignore
     return new_number.m_bin_dump;
 }
 
-BinaryNumber operator+(const BinaryNumber &n1, int n2) {
+BinaryNumber operator+(const BinaryNumber &n1, int n2) { // переопределение оператора
     int bitness;
     if (abs(n2) == 1 || abs(n2) == 0)
         bitness = 2;

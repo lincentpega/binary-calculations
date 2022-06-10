@@ -10,7 +10,7 @@ class BinaryNumber {
 private:
     std::vector<int> m_bin_dump;
     int m_bitness;
-    bool m_negative_flag = false; // true - "+", false - "-"
+    bool m_negative_flag = true; // true '-' false '+'
     void setDump(int number);
 
 public:
@@ -22,8 +22,8 @@ public:
     BinaryNumber(const BinaryNumber &n) = default; // default copy-initialization
 
     BinaryNumber(int number, int bitness) : m_bitness(bitness) {
-        if (abs(number) > pow(2, bitness - 1)) {
-            std::cerr << "Isn't possible to keep number " << number << "in vector of bitness " << bitness;
+        if (abs(number) > pow(2, bitness - 1) - 1) { // проверка, поместится ли число в bitness
+            std::cerr << "Isn't possible to keep number " << number << " in vector of bitness " << bitness;
             exit(2);
         }
         m_bin_dump.resize(m_bitness);
@@ -31,11 +31,11 @@ public:
     }
 
     // constructor can't be used for implicit conversion and copy-initialization
-    explicit BinaryNumber(const std::vector<int> &arr) {
-        m_bitness = static_cast<int>(arr.size());
-        m_negative_flag = arr.back() != 1;
+    explicit BinaryNumber(const std::vector<int> &vect) {
+        m_bitness = static_cast<int>(vect.size());
+        m_negative_flag = vect.back() == 1;
         m_bin_dump.resize(m_bitness);
-        setDump(arr);
+        setDump(vect);
     }
 
     void setDump(std::vector<int> dump);
